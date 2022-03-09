@@ -39,9 +39,17 @@ namespace TokenBasedAuthSample.Controllers
             }
         }
 
-        [HttpGet] // api/products
-        [Authorize(AuthenticationSchemes = "myScheme")]
+        [HttpGet("protected")] // api/products/protected
+        [Authorize(AuthenticationSchemes = "myScheme")] 
+        // access token göndereceğiz.
         public IActionResult GetProducts()
+        {
+            return Ok(productDtos);
+        }
+
+
+        [HttpGet("public")] // api/products/public
+        public IActionResult PublicProducts()
         {
             return Ok(productDtos);
         }
