@@ -23,7 +23,39 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+
+
                         </li>
+                        <li>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Public">Public Product</a>
+
+                        </li>
+                        <li>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Protected">Protected Product</a>
+                        </li>
+
+
+                        <li>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Protected2">Protected Product 2</a>
+                        </li>
+
+
+                        @if (!User.Identity.IsAuthenticated)
+                        {
+                            <li>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                            </li>
+                        }
+
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
+                            </li>
+                        }
+
+
                     </ul>
                 </div>
             </div>

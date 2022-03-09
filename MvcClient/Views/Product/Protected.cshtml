@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewData["Title"] = "Protected";
+}
+
+@model List<ProductViewModel>
+
+<h1>Index</h1>
+
+
+<ul>
+
+    @foreach (var item in Model)
+    {
+        <li>Name: @item.ProductName</li>
+        <li>Price: @item.UnitPrice</li>
+        <li>Stock : @item.UnitsInStock</li>
+    }
+
+</ul>

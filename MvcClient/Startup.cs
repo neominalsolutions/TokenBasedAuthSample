@@ -30,6 +30,7 @@ namespace MvcClient
             });
 
             services.AddSingleton<RequestInterceptor>();
+            services.AddHttpContextAccessor(); // IHttpContextAccessor kardeþe eriþmek için
 
             // requestInterceptor request atarken araya giren bir kardeþ
             // accesstoken gönderebiliriz. bu sayede requeste her serferinde access token göndermeyi unutmayýz.
@@ -41,6 +42,23 @@ namespace MvcClient
                 opt.DefaultRequestHeaders.Add("User-Agent", "MVCClient");
 
             }).AddHttpMessageHandler<RequestInterceptor>();
+
+
+            services.AddAuthentication(opt  => {
+
+                opt.DefaultAuthenticateScheme = "ExternalAuth";
+                opt.DefaultSignInScheme = "ExternalAuth";
+
+
+            }).AddCookie("ExternalAuth", opt =>
+            {
+                opt.Cookie.Name = "ExternalCookie";
+                opt.LoginPath = "/Account/Login";
+                opt.LogoutPath = "/Account/Logout";
+                opt.AccessDeniedPath = "/Account/AccessDenied";
+
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,7 +78,7 @@ namespace MvcClient
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
